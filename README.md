@@ -12,11 +12,11 @@
 <a href="https://www.linkedin.com/in/rafael-luz-b221a049/" target="_blank"><img loading="lazy" src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>   
 </div>
 
-## Utilitário  [!NOTE] [!WARNING]
+## Utilitário 🛠️
 
 Dataset's , Widget's e Formulários úteis 
 
-## Funções <b>Client Side</b>
+## Funções <b>Client Side</b> 💻
 
 Para consultar dados do ambiente da sessão via JavaScipt (client side) é possível utilizar nos eventos a biblioteca WCMAPI. As propriedades disponíveis através da WCMAPI são:
 
@@ -37,8 +37,9 @@ ou	Exemplos: "1", "12", "99"
 
 * WCMAPI.getTenantCode()
 * WCMAPI.Create	Envia uma requisição ao servidor do fluig.
+
 	Exemplo:
-	WCMAPI.Create({
+	`WCMAPI.Create({
 	    url: '{url a ser consumida}',
 	    contentType: "text/xml",
 	    dataType: "xml",
@@ -46,20 +47,21 @@ ou	Exemplos: "1", "12", "99"
 	    success: function(data){
 	        // código a ser executado em caso de sucesso
 	    }
-	});
+	});`
+
 * WCMAPI.serverContextURL	Retorna a raiz da URL do portal da plataforma.
 ou	Valor: "/portal" 
 * WCMAPI.getServerContextURL()
 * WCMAPI.logoff	Encerra a sessão de um usuário na plataforma.
 	Exemplo de utilização na função click de um botão implementado no arquivo JavaScript de um widget:
-	showMessage: function () {
+
+	`showMessage: function () {
 	    $div = $('#helloMessage_' + this.instanceId);
 	    $message = $('<div>').addClass('message').append(this.message);
 	    $div.append($message);
 	 
 	    WCMAPI.logoff(); //Chamada da API
-	}
-
+	}`
 
 
 
