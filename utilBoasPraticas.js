@@ -376,4 +376,30 @@ let elem = arrayEleme.reduce((previous,current,index,arr)=>{
     
 })
 
-elem 
+
+// GERAR INSERT TABELA 
+
+function gerarInsert(funcionarios) {
+    const colunas = Object.keys(funcionarios[0]);
+    let valores = funcionarios.map(funcionario => {
+        return colunas.map(coluna => {
+            let valor = funcionario[coluna];
+            // Trata valores nulos e datas
+            if (valor === null || valor === "null" || valor === "undefined" || valor === "N/A") {
+                return 'NULL';
+            } else if (coluna === "DATAADMISSAO" || coluna === "DTNASCIMENTO") {
+                return `'${valor.split('T')[0]}'`;
+            } else {
+                return `'${valor}'`;
+            }
+        }).join(', ');
+    }).join('),\n(');
+
+    console.log(`INSERT INTO gestao_usuario (${colunas.join(', ')}) VALUES\n(${valores});`);
+}
+
+let  sql = `SELECT * FROM gestao_usuario WHERE CODSITUACAO = "A" AND NOME_FILIAL <> "EMBRACON ADMINISTRADORA DE CONSORCIO LTDA" ;`
+
+    let  ds = DatasetFactory.getDataset('ds_executa_query_consulta' ,[sql], null, null);
+
+gerarInsert(ds.values)  
