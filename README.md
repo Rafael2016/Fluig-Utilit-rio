@@ -64,4 +64,16 @@ ou	Valor: "/portal"
 	}`
 
 
+## Tipos de eventos do processo
+
+
+![image](https://github.com/user-attachments/assets/3906379f-c7d8-4726-b14a-ca0a17e3c2cd)
+
+![image](https://github.com/user-attachments/assets/3ed74d0a-7914-42ad-981b-58e1dd7ee50a)
+
+![image](https://github.com/user-attachments/assets/3ceb4e43-b32e-4fe0-9b6c-f0331f5c440a)
+
+
+
+
 
