@@ -403,3 +403,66 @@ let  sql = `SELECT * FROM gestao_usuario WHERE CODSITUACAO = "A" AND NOME_FILIAL
     let  ds = DatasetFactory.getDataset('ds_executa_query_consulta' ,[sql], null, null);
 
 gerarInsert(ds.values)  
+
+
+//### GERAR PDF  HTML DIV 
+
+ async function loadScripts() {
+
+
+         let script1 = document.createElement('script');
+        script1.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';  // URL da biblioteca
+        script1.type = 'text/javascript';
+        script1.onload = function() {
+            
+            alert('Biblioteca jsPDF carregada!');
+        };
+        script1.onerror = function() {
+            alert('Erro ao carregar a biblioteca!');
+        };
+
+        document.head.appendChild(script1);
+
+
+        let script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';  // URL da biblioteca
+        script.type = 'text/javascript';
+        script.onload = function() {
+            
+            alert('Biblioteca jsPDF carregada!');
+        };
+        script.onerror = function() {
+            alert('Erro ao carregar a biblioteca!');
+        };
+        document.head.appendChild(script);
+    }
+
+ async function generatePDF() {
+
+        await loadScripts()
+        let contentDiv = document.getElementById('doc_aviso_previo_indenizado_com_convenios');
+        
+        // Converta o conteúdo do div para um canvas
+        let canvas = await html2canvas(contentDiv,{ scale: 2 });
+
+        // Obtenha a imagem do canvas como base64
+        let imgData = canvas.toDataURL('image/png');
+        
+        // Crie um novo documento PDF
+        let { jsPDF }  = window.jspdf;
+        let  pdf       = new jsPDF('p', 'mm', 'a4');
+        
+        // Defina as dimensões da imagem no PDF
+        let imgWidth = 240;  // largura do PDF A4 em mm
+        let  imgHeight = (canvas.height * imgWidth) / canvas.width;  // cálculo da altura proporcional
+
+        pdf.setFontSize(18);
+        
+        // Adicione a imagem no PDF
+        pdf.addImage(imgData, 'PNG', 2, 2, imgWidth, imgHeight);
+        
+        // Salve o PDF
+        pdf.save('documento.pdf');
+    }
+
+generatePDF()
