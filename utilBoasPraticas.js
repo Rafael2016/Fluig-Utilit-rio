@@ -425,3 +425,13 @@ if(dsRole.length <= 0){
 console.log(`COLABORADOR: ${user.colleagueName} - Email:${user.mail}`)
 }
 })
+
+// ATUALIZADO VERSÃO DO FORMULARIO DA SOLICITAÇÃO
+
+let sql = `UPDATE DOCUMENTO
+	 SET NUM_VERS_PROPRIED= "6000"
+	 WHERE 
+	 NR_DOCUMENTO = "462678"  ` 
+
+let  ds = DatasetFactory.getDataset('dsGenericExecuteSQL' ,['DML', sql], null, null);
+ds 
