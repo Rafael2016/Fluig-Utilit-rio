@@ -37,18 +37,18 @@ for(key in data){
 
 }
 
-## Validação Vázio atribuição
+//## Validação Vázio atribuição
 
 var a = undefined;
 
 var b = a != undefined ? a : 'vazia';
 console.log(a);
 
-## namespace POO 
+//## namespace POO 
 
 var dados = (function)
 
-## Gerar elemento HTML
+//## Gerar elemento HTML
 
 const element        = document.getElementById('container-justificativa');
         const div            = document.createElement('div');
@@ -85,15 +85,14 @@ const element        = document.getElementById('container-justificativa');
 
         element.appendChild(div);
 
-### SPLIT seperar string
+//### SPLIT seperar string
 
-## O separador também pode ser uma expressão regular.
+//## O separador também pode ser uma expressão regular.
 
 var names = 'Harry Trump ;Fred Barney; Helen Rigby ; Bill Abel ;Chris Hand ';
 names.split(/\s*;\s*/)
 
  
- ##FORMATA 
 
  //Moeda Local 
  parseFloat(sd).toLocaleString("pt-BR", { style: "currency" , currency:"BRL"});
@@ -403,6 +402,29 @@ let  sql = `SELECT * FROM gestao_usuario WHERE CODSITUACAO = "A" AND NOME_FILIAL
     let  ds = DatasetFactory.getDataset('ds_executa_query_consulta' ,[sql], null, null);
 
 gerarInsert(ds.values)  
+
+//# BUSCA DADOS USUÁRIOS E OS PAPEIS 
+
+let param = [
+    DatasetFactory.createConstraint("active", "true", "true", ConstraintType.MUST),
+   
+]
+
+let ds = DatasetFactory.getDataset("colleague ", null, param, null).values
+
+ds.forEach(user=>{
+
+let param1 = [
+DatasetFactory.createConstraint("workflowColleagueRolePK.colleagueId", user["colleaguePK.colleagueId"], 
+user["colleaguePK.colleagueId"], ConstraintType.MUST)
+]
+
+let dsRole = DatasetFactory.getDataset("workflowColleagueRole", null, param1, null).values
+
+if(dsRole.length <= 0){
+console.log(`COLABORADOR: ${user.colleagueName} - Email:${user.mail}`)
+}
+})
 
 
 //### GERAR PDF  HTML DIV 
