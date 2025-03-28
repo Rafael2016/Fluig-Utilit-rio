@@ -435,3 +435,4 @@ let sql = `UPDATE DOCUMENTO
 
 let  ds = DatasetFactory.getDataset('dsGenericExecuteSQL' ,['DML', sql], null, null);
 ds 
+>>>>>>> 38788af396e07634a63ac2627af66ba5a3ec12d1
