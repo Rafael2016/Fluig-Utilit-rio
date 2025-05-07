@@ -28,3 +28,18 @@ var result = workflowEngine.cancelInstance(
                                            "Nº Solicitação", 
                                            "Matrícula usuário", // Tem que ser o Gestor ou usuário que abriu a solicitação
                                            "Mensagem")
+
+/**
+ *@LISTA GRUPOS DO USUÁRIO
+ *
+ */
+
+var groupService   = fluigAPI.getGroupService(); 
+var groupUser        = groupService.findGroupsByUser("MATRICULA_FLUIG","");
+
+/**
+ *@LISTA USUARIO DE UM GRUPO 
+ *
+ */
+var groupService   = fluigAPI.getGroupService(); 
+var userGroup      = groupService.findUsersByGroup("COD_GROUP", "", 100, 100, "");
