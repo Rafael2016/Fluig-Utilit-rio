@@ -425,3 +425,4 @@ if(dsRole.length <= 0){
 console.log(`COLABORADOR: ${user.colleagueName} - Email:${user.mail}`)
 }
 })
+>>>>>>> 38788af396e07634a63ac2627af66ba5a3ec12d1
