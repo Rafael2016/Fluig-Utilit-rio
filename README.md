@@ -75,22 +75,23 @@ ou	Valor: "/portal"
 
 ## BANCO DE DADOS FLUIG
 
-✔ PROCES_WORKFLOW : Processo e Solicitações
-✔ DEF_PROCES :  Tabela principal de configuração dos processos
-✔ VERS_DEF_PROCES :Tabela auxiliar de versões do processo
-✔ TAR_PROCES  : Tarefa da atividade solicitação
-✔ TAR_WORKFLOW : Atividade Processo 
-✔ DOCUMENTO : Formulario ECM
-✔ FICHARIO : 
-✔ SERV_DATASET: Tabela de datasets dos formulários/documentos
-✔ META_LISTA_REL : Tabela de referência das tabelas de dados dos formulários
-✔ FDN_USER : USUÁRIOS
-✔ FDN_ROLE  : PAPEIS USUÁRIO 
-✔ FDN_USERROLE :  GRUPO USUÁRIO
-✔ ESTADO_PROCE : ATIVIDADES DO PROCESSO
-✔ FDN_PARAMGERAL : PARAMETROS GERAL FLUIG
-✔ FDN_ACESSLOG     : LOGS DE ACESSOS
-✔ SERV_DATASET :Tabela do Fluig que lista os datasets internos e datasets customizados.	
+| Tabela | Descrição |
+|---|---|
+| **PROCES_WORKFLOW** | Processo e Solicitações |
+| **DEF_PROCES** | Tabela principal de configuração dos processos |
+| **VERS_DEF_PROCES** | Tabela auxiliar de versões do processo |
+| **TAR_PROCES** | Tarefa da atividade solicitação |
+| **TAR_WORKFLOW** | Atividade Processo |
+| **DOCUMENTO** | Formulário ECM |
+| **FICHARIO** | |
+| **SERV_DATASET** | Tabela de datasets dos formulários/documentos; Tabela do Fluig que lista os datasets internos e datasets customizados. |
+| **META_LISTA_REL** | Tabela de referência das tabelas de dados dos formulários |
+| **FDN_USER** | Usuários |
+| **FDN_ROLE** | Papéis Usuário |
+| **FDN_USERROLE** | Grupo Usuário |
+| **ESTADO_PROCE** | Atividades do Processo |
+| **FDN_PARAMGERAL** | Parâmetros Geral Fluig |
+| **FDN_ACESSLOG** | Logs de Acessos |
 
 
 

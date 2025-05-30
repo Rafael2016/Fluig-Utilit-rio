@@ -75,3 +75,30 @@ var groupUser        = groupService.findGroupsByUser("MATRICULA_FLUIG","");
  */
 var groupService   = fluigAPI.getGroupService(); 
 var userGroup      = groupService.findUsersByGroup("COD_GROUP", "", 100, 100, "");
+
+/**
+ *@Ler Anexo e montar parametros com link para envio 
+ */
+var docs = hAPI.listAttachments();
+
+             
+for (var i = 0; i < docs.size(); i++) {
+    var doc = docs.get(i);
+    if(doc.getDocumentDescription() == "meuRelatorio.pdf"){
+        parametros.put("LINK_RELATORIO", fluigAPI.getDocumentService().getDownloadURL(doc.getDocumentId()));
+    }
+}
+
+/**
+ * @PROIBIR TRANSFERÊNCIA PRAMETROS WKIsTransfer
+ */
+
+function beforeTaskCreate(colleagueId) {
+    var isTransfer = getValue("WKIsTransfer");
+ 
+    if (isTransfer !== null) {
+        if (JSON.parse(isTransfer)) {
+            throw "Não é permitido transferir a atividade!";
+        }
+    }
+}
