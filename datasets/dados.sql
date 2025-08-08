@@ -104,6 +104,59 @@ ds
 --- ## LISTA TODA TABELAS E SCHEMA 
  
  SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS 
+
+
+ -- ##
+
+ SELECT *
+FROM (
+    SELECT COD_DATASET
+        ,'0' AS NR_DOCUMENTO
+        ,'MD' + right(replicate('0', 3) + cast(rtrim(ltrim(COD_EMPRESA)) AS VARCHAR(3)), 3) + right(replicate('0', 3) + cast(rtrim(ltrim(COD_LISTA)) AS VARCHAR(3)), 3) AS META_LIST
+        ,TYPE
+        ,'jornalizado' AS DETAIL
+    FROM SERV_DATASET
+    WHERE COD_EMPRESA = 1
+        AND TYPE = 'CUSTOM'
+        AND COD_LISTA IS NOT NULL
+    
+    UNION ALL
+    
+    SELECT DS.COD_DATASET
+        ,D.NR_DOCUMENTO
+        ,'ML' + right(replicate('0', 3) + cast(rtrim(ltrim(D.COD_EMPRESA)) AS VARCHAR(3)), 3) + right(replicate('0', 3) + cast(rtrim(ltrim(D.COD_LISTA)) AS VARCHAR(3)), 3) AS META_LIST
+        ,TYPE
+        ,'principal' AS TIPO
+    FROM SERV_DATASET DS
+    INNER JOIN DOCUMENTO D ON DS.COD_EMPRESA = D.COD_EMPRESA
+        AND DS.DSL_DATASET = D.NR_DOCUMENTO
+        AND D.VERSAO_ATIVA = 1
+    WHERE DS.COD_EMPRESA = 1
+        AND DS.IS_ACTIVE = 1
+        AND DS.DSL_BUILDER = 'com.datasul.technology.webdesk.dataset.MetaListDatasetBuilder'
+        AND DS.TYPE = 'BUILTIN'
+    
+    UNION ALL
+    
+    SELECT DAD_DS.COD_DATASET
+        ,MLR.COD_LISTA_PAI AS NR_DOCUMENTO
+        ,'ML' + right(replicate('0', 3) + cast(rtrim(ltrim(MLR.COD_EMPRESA)) AS VARCHAR(3)), 3) + right(replicate('0', 3) + cast(rtrim(ltrim(MLR.COD_LISTA_FILHO)) AS VARCHAR(3)), 3) AS META_LIST
+        ,TYPE
+        ,MLR.COD_TABELA AS TIPO
+    FROM meta_lista_rel MLR
+    INNER JOIN documento DAD ON MLR.COD_EMPRESA = DAD.COD_EMPRESA
+        AND MLR.COD_LISTA_PAI = DAD.COD_LISTA
+        AND DAD.VERSAO_ATIVA = 1
+    INNER JOIN SERV_DATASET DAD_DS ON MLR.COD_EMPRESA = DAD_DS.COD_EMPRESA
+        AND DAD.NR_DOCUMENTO = DAD_DS.DSL_DATASET
+        AND DAD_DS.IS_ACTIVE = 1
+        AND DAD_DS.DSL_BUILDER = 'com.datasul.technology.webdesk.dataset.MetaListDatasetBuilder'
+        AND DAD_DS.TYPE = 'BUILTIN'
+    WHERE MLR.COD_EMPRESA = 1
+    ) AS R
+WHERE COD_DATASET LIKE '%'
+ORDER BY 1 DESC
+
    
 
 

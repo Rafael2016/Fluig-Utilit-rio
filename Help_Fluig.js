@@ -66,7 +66,7 @@ for (let i = 0; i < vals.length; i++) {
  *
  */
 
-var groupService   = fluigAPI.getGroupService(); 
+var groupService    = fluigAPI.getGroupService(); 
 var groupUser        = groupService.findGroupsByUser("MATRICULA_FLUIG","");
 
 /**
@@ -75,6 +75,12 @@ var groupUser        = groupService.findGroupsByUser("MATRICULA_FLUIG","");
  */
 var groupService   = fluigAPI.getGroupService(); 
 var userGroup      = groupService.findUsersByGroup("COD_GROUP", "", 100, 100, "");
+
+/**
+ * @USER FLUIG API
+ */
+
+var userDvo = fluigAPI.getUserService().findByLogin("login_usuario");
 
 /**
  *@Ler Anexo e montar parametros com link para envio 
@@ -102,3 +108,63 @@ function beforeTaskCreate(colleagueId) {
         }
     }
 }
+
+/**
+ *
+ *@Validar antes de Transferir solicitações
+ */
+function resolve(process,colleague){
+
+    var userList = new java.util.ArrayList();
+    var codFilial = hAPI.getCardValue("codFilial");
+    
+    
+    if (!valorEmBranco(codFilial)){
+        var filtro = new Array();
+        filtro.push(DatasetFactory.createConstraint('groupPK.groupId','EstoqueFilial_'+codFilial, 'EstoqueFilial_'+codFilial, ConstraintType.MUST));
+        var dsGrupos = DatasetFactory.getDataset('group', null, filtro, null);
+        if (dsGrupos != null && dsGrupos != undefined && dsGrupos.rowsCount>0){
+            var grupo = dsGrupos.getValue(0, "groupPK.groupId");
+            userList.add("Pool:Group:"+grupo);
+        }
+        else {
+            userList.add( 'Pool:Role:admin');
+        }
+        
+    
+    }
+    else {
+        userList.add( 'Pool:Role:admin');
+    }   
+    
+    return userList;
+}
+
+/// ANEXAR  DOCUMENTO A SOLICITAÇÃO ATRAVES DO IDDOCUMENTO JÁ EXISTENTE NO GED
+hAPI.attachDocument("Número Documento");
+
+/**
+ *@Movimenta Solicitacao 
+*/
+
+let param = 
+    {
+   "movementSequence": 21,
+    "assignee": "71e8597c4e8a4523a9c202bed1a9c8c1",      // Matricula usuario atual atividade
+    "targetState": 21,
+    "targetAssignee": "397a543ef16f40dcbee7938dbdc8a74b",  // Matricula usuario destino
+    "subProcessTargetState":1,
+    "comment": "Teste Movimentação",
+    "asManager": true
+   
+}
+
+let ds = DatasetFactory.getDataset("dsCallAPIFluig", 
+    null, [
+        DatasetFactory.createConstraint("endpoint", "/process-management/api/v2/requests/80782/move", "", ConstraintType.MUST),
+        DatasetFactory.createConstraint("method","POST", "" , ConstraintType.MUST),
+        DatasetFactory.createConstraint("parametros", JSON.stringify(param), "", ConstraintType.MUST)
+        
+    ],  null);
+
+ds 
