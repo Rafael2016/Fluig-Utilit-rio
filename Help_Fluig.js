@@ -82,6 +82,25 @@ var userGroup      = groupService.findUsersByGroup("COD_GROUP", "", 100, 100, ""
 
 var userDvo = fluigAPI.getUserService().findByLogin("login_usuario");
 
+
+/**
+ *@Deletar Documento
+ */
+var exclui = fluigAPI.getDocumentService().deleteDocument(documentId);
+
+
+/**
+ *@Excluir Solicitação 
+ */
+
+var instanceId = 73; // número da solicitação a ser cancelada
+        var vo = new com.fluig.sdk.api.workflow.CancelInstanceVO();
+        vo.setProcessInstanceId(instanceId); 
+        vo.setCancelText("Cancelamento via script de evento de processos");
+
+        fluigAPI.getWorkflowService().cancelInstance(vo);
+
+
 /**
  *@Ler Anexo e montar parametros com link para envio 
  */
