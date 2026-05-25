@@ -88,7 +88,7 @@ ou	Valor: "/portal"
 | **META_LISTA_REL** | Tabela de referência das tabelas de dados dos formulários |
 | **FDN_USER** | Usuários |
 | **FDN_ROLE** | Papéis Usuário |
-| **FDN_USERROLE** | Grupo Usuário |
+| **FDN_USERROLE** | Grupo Usuário [LOGIN/ROLE_CODE/TENANT_ID/USERROLE_ID] |
 | **ESTADO_PROCE** | Atividades do Processo |
 | **FDN_PARAMGERAL** | Parâmetros Geral Fluig |
 | **FDN_ACESSLOG** | Logs de Acessos |
